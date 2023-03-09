@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace tbclla\Revolut\Resources;
 
 use tbclla\Revolut\Builders\PaymentDraftBuilder;

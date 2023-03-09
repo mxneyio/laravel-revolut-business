@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace tbclla\Revolut\Auth;
 
 use Illuminate\Database\Eloquent\Builder;

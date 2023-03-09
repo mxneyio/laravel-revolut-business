@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace tbclla\Revolut\Builders;
 
 use tbclla\Revolut\Interfaces\Buildable;

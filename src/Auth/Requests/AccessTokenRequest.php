@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace tbclla\Revolut\Auth\Requests;
 
 use tbclla\Revolut\Client as RevolutClient;
