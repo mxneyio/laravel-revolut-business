@@ -5,6 +5,7 @@ namespace tbclla\Revolut\Auth;
 use Exception;
 use Firebase\JWT\JWT;
 use tbclla\Revolut\Exceptions\ConfigurationException;
+use Throwable;
 
 class ClientAssertion
 {
@@ -87,7 +88,7 @@ class ClientAssertion
         try {
             return $this->jwtClient->encode($this->buildPayload(), $this->getPrivateKey(), self::ALGORYTHM);
         } catch (Exception $e) {
-            throw new ConfigurationException('Failed to create JWT - ' . $e->getMessage(), null, $e);
+            throw new ConfigurationException('Failed to create JWT - ' . $e->getMessage(), 0, $e);
         }
     }
 
@@ -115,9 +116,9 @@ class ClientAssertion
     private function getPrivateKey()
     {
         try {
-            return file_get_contents($this->privateKey);
-        } catch (Exception $e) {
-            throw new ConfigurationException('Private Key not configured correctly! ' . $e->getMessage(), null, $e);
+            return file_get_contents($this->privateKey ?? '');
+        } catch (Throwable $e) {
+            throw new ConfigurationException('Private Key not configured correctly! ' . $e->getMessage(), 0, $e);
         }
     }
 

@@ -4,9 +4,11 @@ namespace tbclla\Revolut\Console\Commands;
 
 use Exception;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Illuminate\Console\Command;
 use tbclla\Revolut\Auth\ClientAssertion;
 use tbclla\Revolut\Exceptions\ConfigurationException;
+use Throwable;
 
 class JWTCommand extends Command
 {
@@ -32,7 +34,13 @@ class JWTCommand extends Command
     public function handle()
     {
         // build the JWT
-        $jwt = $this->buildJWT();
+        try {
+            $jwt = $this->buildJWT();
+        } catch (ConfigurationException $e) {
+            $this->error($e->getMessage());
+
+            return Command::FAILURE;
+        }
 
         $this->info('Your JSON web token was created successfully:');
         $this->info('<fg=black;bg=yellow>' . $jwt . '</>');
@@ -40,7 +48,13 @@ class JWTCommand extends Command
         // optionally, verify the key
         $key = $this->checkPublicKey($this->option('public') ?? null);
 
-        $decoded = JWT::decode($jwt, $key, [ClientAssertion::ALGORYTHM]);
+        try {
+            $decoded = JWT::decode($jwt, new Key($key, ClientAssertion::ALGORYTHM));
+        } catch (Throwable $e) {
+            $this->error($e->getMessage());
+
+            return Command::FAILURE;
+        }
 
         $headers = ['parameter', 'value'];
         $data = [
@@ -56,22 +70,20 @@ class JWTCommand extends Command
 
     /**
      * @return string
+     * @throws ConfigurationException
      */
-    private function buildJWT()
+    private function buildJWT(): string
     {
-        try {
-            $clientAssertion = resolve(ClientAssertion::class);
-            return $clientAssertion->build();
-        } catch (ConfigurationException $e) {
-            $this->error($e->getMessage());
-            return;
-        }
+        /** @var ClientAssertion $clientAssertion */
+        $clientAssertion = resolve(ClientAssertion::class);
+
+        return $clientAssertion->build();
     }
 
     /**
      * @return string
      */
-    private function checkPublicKey($key = null)
+    private function checkPublicKey($key = null): string
     {
         try {
             return file_get_contents($key ?? $this->ask('If you want to validate this JWT, enter the path to your public key'));
