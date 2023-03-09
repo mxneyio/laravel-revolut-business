@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
-         bootstrap="vendor/autoload.php"
-         colors="true">
-    <testsuites>
-        <testsuite name="Unit">
-            <directory suffix="Test.php">./tests/Unit</directory>
-        </testsuite>
-        <testsuite name="Feature">
-            <directory suffix="Test.php">./tests/Feature</directory>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
-        </whitelist>
-    </filter>
-    <php>
-        <server name="DB_CONNECTION" value="sqlite"/>
-        <server name="DB_DATABASE" value=":memory:"/>
-        <env name="APP_URL" value="http://example.test"/>
-        <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF"/>
-        <env name="REVOLUT_CLIENT_ID" value="l4C7YM6zC91u0RoU0_FNga7VMMGSaudjVIUmdkwbRxE"/>
-        <env name="REVOLUT_REDIRECT_URI" value="http://example.test/revolut-business"/>
-        <env name="REVOLUT_PRIVATE_KEY" value="./tests/example_privatekey.pem"/>
-        <env name="REVOLUT_PUBLIC_KEY" value="./tests/example_publickey.cer"/>
-    </php>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd" bootstrap="vendor/autoload.php" colors="true" cacheDirectory=".phpunit.cache">
+  <coverage>
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+  </coverage>
+  <testsuites>
+    <testsuite name="Unit">
+      <directory suffix="Test.php">./tests/Unit</directory>
+    </testsuite>
+  </testsuites>
+  <php>
+    <server name="DB_CONNECTION" value="sqlite"/>
+    <server name="DB_DATABASE" value=":memory:"/>
+    <env name="APP_URL" value="http://example.test"/>
+    <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF"/>
+    <env name="REVOLUT_CLIENT_ID" value="l4C7YM6zC91u0RoU0_FNga7VMMGSaudjVIUmdkwbRxE"/>
+    <env name="REVOLUT_REDIRECT_URI" value="http://example.test/revolut-business"/>
+    <env name="REVOLUT_PRIVATE_KEY" value="./tests/example_privatekey.pem"/>
+    <env name="REVOLUT_PUBLIC_KEY" value="./tests/example_publickey.cer"/>
+  </php>
 </phpunit>
