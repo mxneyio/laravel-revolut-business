@@ -1,10 +1,10 @@
 {
-    "name": "tbclla/laravel-revolut-business",
+    "name": "mxneyio/laravel-revolut-business",
     "description": "An unofficial Laravel wrapper for Revolut's Open API for Business",
     "license": "MIT",
     "require": {
-        "firebase/php-jwt": "^5.2",
-        "guzzlehttp/guzzle": "^6.5"
+        "firebase/php-jwt": "^6.0",
+        "guzzlehttp/guzzle": "^7.2"
     },
     "autoload": {
         "psr-4": {
@@ -27,6 +27,7 @@
         }
     },
     "require-dev": {
-        "orchestra/testbench": "^5.1"
+        "orchestra/testbench": "^8.0",
+        "phpunit/phpunit": "^10.0"
     }
 }
